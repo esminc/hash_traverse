@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = HashTraverse::VERSION
   spec.authors       = ["moro"]
   spec.email         = ["moronatural@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Travere nested Hash at ease.}
+  spec.description   = %q[{foo: {hoi: 'hei'}, bar: 2}.traverse(:foo, :hoi) # => 'hei']
   spec.homepage      = ""
   spec.license       = "MIT"
 
