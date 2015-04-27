@@ -7,14 +7,17 @@ module HashTraverse
     def traverse(*keys, &missing)
       found_keys = []
 
-      keys.inject(@hash) {|parent, key|
-        if child = safe_fetch(parent, key)
-          found_keys << key
-          next child
-        else
+      keys.inject(@hash) do |parent, key|
+        begin
+          if parent.respond_to?(:fetch)
+            parent.fetch(key).tap { found_keys << key }
+          else
+            handle_missing(missing, found_keys, parent)
+          end
+        rescue KeyError
           break handle_missing(missing, found_keys, parent)
         end
-      }
+      end
     end
 
     private
@@ -24,7 +27,7 @@ module HashTraverse
     end
 
     def safe_fetch(parent, key)
-      parent.is_a?(Hash) ? parent[key] : nil
+      parent.respond_to?(:fetch) ? parent.fetch(key) : nil
     end
   end
 end

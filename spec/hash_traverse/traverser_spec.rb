@@ -28,4 +28,25 @@ RSpec.describe HashTraverse::Traverser do
       expect(missing_value_for(:foo, :hoi, :oi)).to eq [[:foo, :hoi], 'hei']
     end
   end
+
+  context 'traverse falsy value' do
+    let(:t) do
+      HashTraverse::Traverser.new(
+        foo: {
+          bar: {
+            fuga: false,
+            nuga: nil,
+          }
+        }
+      )
+    end
+
+    specify do
+      expect(t.traverse(:foo, :bar, :fuga) { :do_not_call_me }).to eql false
+    end
+
+    specify do
+      expect(t.traverse(:foo, :bar, :nuga) { :do_not_call_me }).to eql nil
+    end
+  end
 end
