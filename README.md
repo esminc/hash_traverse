@@ -29,6 +29,13 @@ t.traverse(:foo) # => {hoi: 'hei'}
 t.traverse(:foo, :hoi) # => 'hei'
 
 t.traverse(:foo, :poi) # => nil
+
+# Can customize missing behaviour
+t.traverse(:foo, :poi) { :null } # => :null
+
+t.traverse(:foo, :poi) {|*args| args } # => [[:foo], {hoi: 'hei'}]
+
+t.traverse(:foo, :hoi, :oi) {|*args| args } # => [[:foo, :hoi], 'hei']
 ```
 
 Use monkey patching mode with `require`-ing `hash_traverse/core_ext` if you like to use HashTraverse everywhere.
@@ -36,18 +43,6 @@ Use monkey patching mode with `require`-ing `hash_traverse/core_ext` if you like
 require 'hash_traverse/core_ext'
 
 {foo: {hoi: 'hei'}, bar: 2}.traverse(:foo, :hoi) # => 'hei'
-```
-
-## Future plan
-
-```ruby
-t = HashTraverse::Traverser.new(foo: {hoi: 'hei'}, bar: 2)
-
-t.traverse(:foo, :poi) { :null } # => :null
-
-t.traverse(:foo, :poi) {|*args| args } # => [[:foo], {hoi: 'hei'}]
-
-t.traverse(:foo, :hoi, :oi) {|*args| args } # => [[:foo, :hoi], 'hei']
 ```
 
 ## Contributing
