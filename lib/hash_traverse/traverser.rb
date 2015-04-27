@@ -4,10 +4,16 @@ module HashTraverse
       @hash = hash
     end
 
-    def traverse(*keys)
-      keys.inject(@hash) do |hash, key|
+    def traverse(*keys, &missing)
+      keys.inject(@hash) {|hash, key|
         hash[key]
-      end
+      } || handle_missing(missing)
+    end
+
+    private
+
+    def handle_missing(missing)
+      missing ? missing.call : nil
     end
   end
 end

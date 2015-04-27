@@ -5,7 +5,13 @@ RSpec.describe HashTraverse::Traverser do
 
   subject(:t) { HashTraverse::Traverser.new(hash) }
 
-  specify { expect(t.traverse(:foo)).to eq({hoi: 'hei'}) }
-  specify { expect(t.traverse(:foo, :hoi)).to eq 'hei' }
-  specify { expect(t.traverse(:foo, :poi)).to be_nil }
+  context 'traverse simple hash over existing keys from README' do
+    specify { expect(t.traverse(:foo)).to eq({hoi: 'hei'}) }
+    specify { expect(t.traverse(:foo, :hoi)).to eq 'hei' }
+    specify { expect(t.traverse(:foo, :poi)).to be_nil }
+  end
+
+  context 'return custom missing value' do
+    specify { expect(t.traverse(:foo, :poi) { :null }).to eq :null }
+  end
 end
