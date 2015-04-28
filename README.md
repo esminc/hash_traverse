@@ -47,7 +47,7 @@ require 'hash_traverse/core_ext'
 
 ## Contributing
 
-1. Fork it ( https://github.com/moro/hash_traverse/fork )
+1. Fork it ( https://github.com/esminc/hash_traverse/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
